@@ -5,6 +5,9 @@ import Images from "./Components/Images";
 
 function App() {
   const [showImages, setShowImages] = useState(false);
+  const [albumName, setAlbumName] = useState("");
+  const [albumData, setAlbumData] = useState([{ name: "Test", images: [] }]);
+
   function handleNavReload() {
     window.location.reload();
   }
@@ -12,10 +15,37 @@ function App() {
     setShowImages(!showImages);
   }
 
+  function createAlbum(e) {
+    e.preventDefault();
+    setAlbumData([
+      {
+        name: albumName,
+        images: [],
+      },
+      ...albumData,
+    ]);
+    console.log(albumData);
+    setAlbumName("");
+  }
+
+  function createImage(e) {
+    e.preventDefault();
+  }
+
   return (
     <div className="App">
       <Navbar handleNavReload={handleNavReload} />
-      {showImages ? <Images /> : <Albums handleShowImages={handleShowImages} />}
+      {showImages ? (
+        <Images />
+      ) : (
+        <Albums
+          handleShowImages={handleShowImages}
+          createAlbum={createAlbum}
+          setAlbumName={setAlbumName}
+          albumName={albumName}
+          albumData={albumData}
+        />
+      )}
     </div>
   );
 }
