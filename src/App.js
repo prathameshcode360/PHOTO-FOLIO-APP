@@ -1,7 +1,13 @@
+import Navbar from "./Components/Navbar";
+
 function App() {
+  function handleNavReload() {
+    window.location.reload();
+  }
+
   return (
     <div className="App">
-      <h1>Photo-Folio</h1>
+      <Navbar handleNavReload={handleNavReload} />
     </div>
   );
 }

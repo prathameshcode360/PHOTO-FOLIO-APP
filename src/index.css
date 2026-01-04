@@ -1,3 +1,53 @@
-.App{
-  text-align: center;
+/* ===== Global Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== App Wrapper ===== */
+.App {
+  min-height: 100vh;
+  background-color: #f9fafb; /* light neutral background */
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  width: 100%;
+  height: 70px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ===== Logo + Title ===== */
+.right-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+/* Logo */
+.right-nav img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+/* Title */
+.right-nav h3 {
+  color: #111827;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+/* ===== Hover Effect ===== */
+.right-nav:hover h3 {
+  color: #2563eb;
+  transition: color 0.25s ease;
 }
