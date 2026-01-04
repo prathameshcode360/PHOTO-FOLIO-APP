@@ -1,3 +1,9 @@
+/* ================= GLOBAL ================= */
+body {
+  background-color: #f9fafb;
+}
+
+
 /* ===== Global Reset ===== */
 * {
   margin: 0;
@@ -50,4 +56,159 @@
 .right-nav:hover h3 {
   color: #2563eb;
   transition: color 0.25s ease;
+}
+
+
+/* ================= COMMON FORM CONTAINER ================= */
+.form-container {
+  width: 100%;
+  padding: 30px 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Common Button */
+.form-container button {
+  padding: 10px 18px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #1d4ed8;
+}
+
+/* ================= CREATE ALBUM FORM ================= */
+.create-album-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.create-album-form h2 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #111827;
+}
+
+.create-album-form form {
+  display: flex;
+  gap: 10px;
+}
+
+.create-album-form input {
+  padding: 8px 12px;
+  width: 200px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+}
+
+.create-album-form button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #16a34a;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ================= ALBUM GRID ================= */
+.albums {
+  padding: 20px 40px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+/* ================= ALBUM CARD ================= */
+.album-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.album-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Album Icon */
+.album-card img {
+  width: 64px;
+  margin-bottom: 10px;
+}
+
+/* Album Name */
+.album-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* Delete Album */
+.delete-album {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.delete-album img {
+  width: 20px;
+  opacity: 0.6;
+}
+
+.delete-album img:hover {
+  opacity: 1;
+}
+
+/* ================= ADD IMAGE FORM ================= */
+.add-image-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.add-image-form form {
+  display: flex;
+  gap: 10px;
+}
+
+.add-image-form input {
+  padding: 8px 12px;
+  width: 180px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+}
+
+.add-image-form button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ================= IMAGES SECTION ================= */
+.Images {
+  padding: 40px;
+  text-align: center;
+}
+
+.Images h2 {
+  color: #6b7280;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
