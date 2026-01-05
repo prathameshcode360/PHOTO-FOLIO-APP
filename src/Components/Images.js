@@ -12,6 +12,8 @@ function Images(props) {
     setImage,
     setShowImages,
     deleteImage,
+    updateImage,
+    resetUpdateState,
   } = props;
 
   const [show, setShow] = useState(false);
@@ -20,6 +22,11 @@ function Images(props) {
 
   function handleBack() {
     setShowImages(false);
+    resetUpdateState();
+  }
+  function hanleUpdateImage(id) {
+    updateImage(id);
+    setShow(true);
   }
 
   return (
@@ -28,7 +35,9 @@ function Images(props) {
         <button onClick={handleBack}>Back</button>
       </div>
 
-      <h2>{album.name}</h2>
+      <div className="album-title">
+        <h2>{album.name}</h2>
+      </div>
 
       <div className="form-container">
         {show && (
@@ -38,7 +47,7 @@ function Images(props) {
             setImage={setImage}
           />
         )}
-        <button onClick={() => setShow(!show)}>
+        <button className="toggle-form-btn" onClick={() => setShow(!show)}>
           {show ? "Cancel" : "Add Image"}
         </button>
       </div>
@@ -47,13 +56,14 @@ function Images(props) {
         {filteredImages.length === 0 ? (
           <h3>No images found</h3>
         ) : (
-          filteredImages.map((img, index) => (
+          filteredImages.map((img) => (
             <ImageCard
-              key={index}
+              key={img.id}
+              id={img.id}
               title={img.title}
               url={img.url}
-              index={index}
               deleteImage={deleteImage}
+              updateImage={hanleUpdateImage}
             />
           ))
         )}

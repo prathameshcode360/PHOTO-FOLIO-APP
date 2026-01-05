@@ -6,10 +6,10 @@ import Images from "./Components/Images";
 function App() {
   const [showImages, setShowImages] = useState(false);
 
-  // albums (index based)
+  // albums
   const [albums, setAlbums] = useState([]);
 
-  // images (index based album reference)
+  // images (with stable id)
   const [images, setImages] = useState([]);
 
   // selected album index
@@ -19,9 +19,8 @@ function App() {
   const [albumName, setAlbumName] = useState("");
   const [image, setImage] = useState({ title: "", url: "" });
 
-  function handleNavReload() {
-    window.location.reload();
-  }
+  //Set updated index
+  const [updateIndex, setUpdateIndex] = useState(null);
 
   function openAlbum(index) {
     setSelectedAlbumIndex(index);
@@ -36,25 +35,53 @@ function App() {
 
   function createImage(e) {
     e.preventDefault();
-    setImages([
-      {
-        title: image.title,
-        url: image.url,
-        albumIndex: selectedAlbumIndex,
-      },
-      ...images,
-    ]);
-    setImage({ title: "", url: "" });
+    if (updateIndex !== null) {
+      setImages(
+        images.map((img) =>
+          img.id === updateIndex
+            ? {
+                ...img,
+                title: image.title,
+                url: image.url,
+              }
+            : img
+        )
+      );
+      setUpdateIndex(null);
+      setImage({ title: "", url: "" });
+    } else {
+      setImages([
+        {
+          id: Date.now(), // ✅ stable id
+          title: image.title,
+          url: image.url,
+          albumIndex: selectedAlbumIndex,
+        },
+        ...images,
+      ]);
+      setImage({ title: "", url: "" });
+    }
   }
 
-  function deleteImage(imageIndex) {
-    setImages(images.filter((_, i) => i !== imageIndex));
+  function deleteImage(id) {
+    setImages(images.filter((img) => img.id !== id)); // ✅ delete by id
+  }
+
+  function updateImage(id) {
+    const imageToUpdate = images.find((img) => img.id === id);
+    setImage({ title: imageToUpdate.title, url: imageToUpdate.url });
+    setUpdateIndex(id);
+  }
+
+  //reset update states
+  function resetUpdateState() {
+    setUpdateIndex(null);
+    setImage({ title: "", url: "" });
   }
 
   return (
     <div className="App">
-      <Navbar handleNavReload={handleNavReload} />
-
+      <Navbar />
       {showImages ? (
         <Images
           album={albums[selectedAlbumIndex]}
@@ -65,6 +92,8 @@ function App() {
           setImage={setImage}
           setShowImages={setShowImages}
           deleteImage={deleteImage}
+          updateImage={updateImage}
+          resetUpdateState={resetUpdateState}
         />
       ) : (
         <Albums

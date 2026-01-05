@@ -1,5 +1,10 @@
 function CreateAlbumForm(props) {
   const { createAlbum, albumName, setAlbumName } = props;
+
+  function clearInputs() {
+    setAlbumName("");
+  }
+
   return (
     <div className="create-album-form">
       <h2>Create An Album</h2>
@@ -11,7 +16,12 @@ function CreateAlbumForm(props) {
           value={albumName}
           onChange={(e) => setAlbumName(e.target.value)}
         />
-        <button type="submit">Create</button>
+        <button className="submit" type="submit">
+          Create
+        </button>
+        <button className="clear-inputs" onClick={clearInputs}>
+          Clear
+        </button>
       </form>
     </div>
   );

@@ -1,5 +1,10 @@
 function AddImageForm(props) {
   const { createImage, image, setImage } = props;
+
+  function clearInputs() {
+    setImage({ title: "", url: "" });
+  }
+
   return (
     <div className="add-image-form">
       <form onSubmit={createImage}>
@@ -19,7 +24,12 @@ function AddImageForm(props) {
             setImage({ title: image.title, url: e.target.value })
           }
         />
-        <button type="submit">Add-Image</button>
+        <button className="clear-inputs" onClick={clearInputs}>
+          Clear
+        </button>
+        <button className="submit" type="submit">
+          Add-Image
+        </button>
       </form>
     </div>
   );

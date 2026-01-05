@@ -20,17 +20,23 @@ function Albums(props) {
             setAlbumName={setAlbumName}
           />
         )}
-        <button onClick={handleShow}>{show ? "Cancel" : "Add Album"}</button>
+        <button className="toggle-form-btn" onClick={handleShow}>
+          {show ? "Cancel" : "Add Album"}
+        </button>
       </div>
       <div className="albums">
-        {albums.map((album, index) => (
-          <AlbumCard
-            key={index}
-            albumName={album.name}
-            index={index}
-            openAlbum={openAlbum}
-          />
-        ))}
+        {albums.length === 0 ? (
+          <h3>No albums added </h3>
+        ) : (
+          albums.map((album, index) => (
+            <AlbumCard
+              key={index}
+              albumName={album.name}
+              index={index}
+              openAlbum={openAlbum}
+            />
+          ))
+        )}
       </div>
     </>
   );
