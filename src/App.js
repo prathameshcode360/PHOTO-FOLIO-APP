@@ -7,7 +7,7 @@ function App() {
   const [showImages, setShowImages] = useState(false);
 
   // albums (index based)
-  const [albums, setAlbums] = useState([{ name: "Test" }]);
+  const [albums, setAlbums] = useState([]);
 
   // images (index based album reference)
   const [images, setImages] = useState([]);
@@ -30,7 +30,7 @@ function App() {
 
   function createAlbum(e) {
     e.preventDefault();
-    setAlbums([{ name: albumName }, ...albums]);
+    setAlbums([...albums, { name: albumName }]);
     setAlbumName("");
   }
 
@@ -47,6 +47,10 @@ function App() {
     setImage({ title: "", url: "" });
   }
 
+  function deleteImage(imageIndex) {
+    setImages(images.filter((_, i) => i !== imageIndex));
+  }
+
   return (
     <div className="App">
       <Navbar handleNavReload={handleNavReload} />
@@ -60,6 +64,7 @@ function App() {
           image={image}
           setImage={setImage}
           setShowImages={setShowImages}
+          deleteImage={deleteImage}
         />
       ) : (
         <Albums

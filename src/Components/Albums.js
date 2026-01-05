@@ -22,7 +22,6 @@ function Albums(props) {
         )}
         <button onClick={handleShow}>{show ? "Cancel" : "Add Album"}</button>
       </div>
-
       <div className="albums">
         {albums.map((album, index) => (
           <AlbumCard

@@ -1,10 +1,12 @@
-function ImageCard({ title, url }) {
+function ImageCard(props) {
+  const { title, url, index, deleteImage } = props;
   return (
     <div className="image-card">
       <h3>{title}</h3>
       <img src={url} alt={title} />
       <div className="actions">
         <img
+          onClick={() => deleteImage(index)}
           src="https://cdn-icons-png.flaticon.com/128/9790/9790368.png"
           alt="delete"
         />

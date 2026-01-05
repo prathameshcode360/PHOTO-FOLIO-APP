@@ -11,6 +11,7 @@ function Images(props) {
     image,
     setImage,
     setShowImages,
+    deleteImage,
   } = props;
 
   const [show, setShow] = useState(false);
@@ -47,7 +48,13 @@ function Images(props) {
           <h3>No images found</h3>
         ) : (
           filteredImages.map((img, index) => (
-            <ImageCard key={index} title={img.title} url={img.url} />
+            <ImageCard
+              key={index}
+              title={img.title}
+              url={img.url}
+              index={index}
+              deleteImage={deleteImage}
+            />
           ))
         )}
       </div>
