@@ -3,8 +3,7 @@ import CreateAlbumForm from "./CreateAlbumForm";
 import AlbumCard from "./AlbumCard";
 
 function Albums(props) {
-  const { handleShowImages, createAlbum, albumName, setAlbumName, albumData } =
-    props;
+  const { albums, albumName, setAlbumName, createAlbum, openAlbum } = props;
   const [show, setShow] = useState(false);
 
   function handleShow() {
@@ -14,21 +13,23 @@ function Albums(props) {
   return (
     <>
       <div className="form-container">
-        {show ? (
+        {show && (
           <CreateAlbumForm
             createAlbum={createAlbum}
             albumName={albumName}
             setAlbumName={setAlbumName}
           />
-        ) : null}
+        )}
         <button onClick={handleShow}>{show ? "Cancel" : "Add Album"}</button>
       </div>
+
       <div className="albums">
-        {albumData.map((album, index) => (
+        {albums.map((album, index) => (
           <AlbumCard
             key={index}
             albumName={album.name}
-            showImages={handleShowImages}
+            index={index}
+            openAlbum={openAlbum}
           />
         ))}
       </div>

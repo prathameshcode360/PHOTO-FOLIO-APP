@@ -1,214 +1,221 @@
-/* ================= GLOBAL ================= */
-body {
-  background-color: #f9fafb;
-}
-
-
-/* ===== Global Reset ===== */
+/* =======================
+   GLOBAL RESET
+======================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ===== App Wrapper ===== */
-.App {
-  min-height: 100vh;
-  background-color: #f9fafb; /* light neutral background */
+body {
+  background-color: #f4f6f8;
+  color: #333;
 }
 
-/* ===== Navbar ===== */
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* =======================
+   NAVBAR
+======================= */
 .navbar {
-  width: 100%;
-  height: 70px;
-  background-color: #ffffff;
+  background-color: #1e293b;
+  padding: 15px 30px;
   display: flex;
   align-items: center;
-  padding: 0 40px;
-  border-bottom: 1px solid #e5e7eb;
 }
 
-/* ===== Logo + Title ===== */
 .right-nav {
   display: flex;
   align-items: center;
-  gap: 12px;
-  cursor: pointer;
-}
-
-/* Logo */
-.right-nav img {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-}
-
-/* Title */
-.right-nav h3 {
-  color: #111827;
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-}
-
-/* ===== Hover Effect ===== */
-.right-nav:hover h3 {
-  color: #2563eb;
-  transition: color 0.25s ease;
-}
-
-
-/* ================= COMMON FORM CONTAINER ================= */
-.form-container {
-  width: 100%;
-  padding: 30px 40px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-/* Common Button */
-.form-container button {
-  padding: 10px 18px;
-  border: none;
-  background-color: #2563eb;
-  color: white;
-  font-size: 0.95rem;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.form-container button:hover {
-  background-color: #1d4ed8;
-}
-
-/* ================= CREATE ALBUM FORM ================= */
-.create-album-form {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-}
-
-.create-album-form h2 {
-  font-size: 1.2rem;
-  margin-bottom: 15px;
-  color: #111827;
-}
-
-.create-album-form form {
-  display: flex;
   gap: 10px;
+  color: #fff;
 }
 
-.create-album-form input {
-  padding: 8px 12px;
-  width: 200px;
-  border: 1px solid #d1d5db;
-  border-radius: 5px;
+.right-nav img {
+  width: 35px;
 }
 
-.create-album-form button {
-  padding: 8px 16px;
-  border: none;
-  background-color: #16a34a;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+/* =======================
+   COMMON FORM CONTAINER
+======================= */
+.form-container {
+  margin: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
-/* ================= ALBUM GRID ================= */
+/* =======================
+   ALBUMS SECTION
+======================= */
 .albums {
-  padding: 20px 40px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
-/* ================= ALBUM CARD ================= */
+/* =======================
+   ALBUM CARD
+======================= */
 .album-card {
-  background-color: #ffffff;
-  border-radius: 10px;
+  background: #fff;
   padding: 20px;
+  border-radius: 12px;
   text-align: center;
   cursor: pointer;
-  position: relative;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .album-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
 }
 
-/* Album Icon */
 .album-card img {
-  width: 64px;
+  width: 60px;
   margin-bottom: 10px;
 }
 
-/* Album Name */
 .album-name {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #111827;
+  font-weight: bold;
 }
 
-/* Delete Album */
-.delete-album {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-}
-
-.delete-album img {
-  width: 20px;
-  opacity: 0.6;
-}
-
-.delete-album img:hover {
-  opacity: 1;
-}
-
-/* ================= ADD IMAGE FORM ================= */
-.add-image-form {
-  background-color: #ffffff;
+/* =======================
+   CREATE ALBUM FORM
+======================= */
+.create-album-form {
+  background: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  width: 280px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.add-image-form form {
-  display: flex;
-  gap: 10px;
+.create-album-form h2 {
+  margin-bottom: 15px;
+}
+
+.create-album-form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.create-album-form button {
+  width: 100%;
+  padding: 8px;
+  background-color: #2563eb;
+  color: #fff;
+  border-radius: 6px;
+}
+
+/* =======================
+   IMAGES PAGE
+======================= */
+.back-button {
+  margin: 20px;
+}
+
+.back-button button {
+  padding: 8px 15px;
+  background-color: #64748b;
+  color: #fff;
+  border-radius: 6px;
+}
+
+h2 {
+  margin-left: 20px;
+}
+
+/* =======================
+   ADD IMAGE FORM
+======================= */
+.add-image-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .add-image-form input {
-  padding: 8px 12px;
-  width: 180px;
-  border: 1px solid #d1d5db;
-  border-radius: 5px;
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
 }
 
 .add-image-form button {
-  padding: 8px 16px;
-  border: none;
-  background-color: #2563eb;
-  color: white;
-  border-radius: 5px;
+  width: 100%;
+  padding: 8px;
+  background-color: #16a34a;
+  color: #fff;
+  border-radius: 6px;
+}
+
+/* =======================
+   IMAGES GRID
+======================= */
+.Images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* =======================
+   IMAGE CARD
+======================= */
+.image-card {
+  background: #fff;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.image-card h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.image-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* =======================
+   IMAGE ACTIONS
+======================= */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.actions img {
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 }
 
-/* ================= IMAGES SECTION ================= */
-.Images {
-  padding: 40px;
-  text-align: center;
-}
+/* =======================
+   RESPONSIVE
+======================= */
+@media (max-width: 600px) {
+  .form-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-.Images h2 {
-  color: #6b7280;
-  font-size: 1.1rem;
-  font-weight: 500;
+  .create-album-form,
+  .add-image-form {
+    width: 100%;
+  }
 }

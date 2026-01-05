@@ -5,45 +5,69 @@ import Images from "./Components/Images";
 
 function App() {
   const [showImages, setShowImages] = useState(false);
+
+  // albums (index based)
+  const [albums, setAlbums] = useState([{ name: "Test" }]);
+
+  // images (index based album reference)
+  const [images, setImages] = useState([]);
+
+  // selected album index
+  const [selectedAlbumIndex, setSelectedAlbumIndex] = useState(null);
+
+  // form states
   const [albumName, setAlbumName] = useState("");
-  const [albumData, setAlbumData] = useState([{ name: "Test", images: [] }]);
+  const [image, setImage] = useState({ title: "", url: "" });
 
   function handleNavReload() {
     window.location.reload();
   }
-  function handleShowImages() {
-    setShowImages(!showImages);
+
+  function openAlbum(index) {
+    setSelectedAlbumIndex(index);
+    setShowImages(true);
   }
 
   function createAlbum(e) {
     e.preventDefault();
-    setAlbumData([
-      {
-        name: albumName,
-        images: [],
-      },
-      ...albumData,
-    ]);
-    console.log(albumData);
+    setAlbums([{ name: albumName }, ...albums]);
     setAlbumName("");
   }
 
   function createImage(e) {
     e.preventDefault();
+    setImages([
+      {
+        title: image.title,
+        url: image.url,
+        albumIndex: selectedAlbumIndex,
+      },
+      ...images,
+    ]);
+    setImage({ title: "", url: "" });
   }
 
   return (
     <div className="App">
       <Navbar handleNavReload={handleNavReload} />
+
       {showImages ? (
-        <Images />
+        <Images
+          album={albums[selectedAlbumIndex]}
+          albumIndex={selectedAlbumIndex}
+          images={images}
+          createImage={createImage}
+          image={image}
+          setImage={setImage}
+          setShowImages={setShowImages}
+        />
       ) : (
         <Albums
-          handleShowImages={handleShowImages}
-          createAlbum={createAlbum}
-          setAlbumName={setAlbumName}
+          albums={albums}
           albumName={albumName}
-          albumData={albumData}
+          setAlbumName={setAlbumName}
+          createAlbum={createAlbum}
+          openAlbum={openAlbum}
         />
       )}
     </div>
