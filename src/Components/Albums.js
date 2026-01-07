@@ -32,7 +32,7 @@ function Albums(props) {
             <AlbumCard
               key={index}
               albumName={album.name}
-              index={index}
+              album={album}
               openAlbum={openAlbum}
             />
           ))

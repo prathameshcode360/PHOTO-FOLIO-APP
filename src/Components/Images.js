@@ -5,7 +5,6 @@ import ImageCard from "./ImageCard";
 function Images(props) {
   const {
     album,
-    albumIndex,
     images,
     createImage,
     image,
@@ -14,20 +13,32 @@ function Images(props) {
     deleteImage,
     updateImage,
     resetUpdateState,
+    updateId,
   } = props;
 
   const [show, setShow] = useState(false);
 
-  const filteredImages = images.filter((img) => img.albumIndex === albumIndex);
+  const filteredImages = images.filter((img) => img.albumId === album.id);
 
   function handleBack() {
     setShowImages(false);
     resetUpdateState();
   }
-  function hanleUpdateImage(id) {
-    updateImage(id);
+  function handleUpdateImage(img) {
+    updateImage(img);
     setShow(true);
   }
+
+  function handleToggleForm() {
+    if (show) {
+      setShow(false);
+      resetUpdateState();
+    } else {
+      setShow(true);
+    }
+  }
+
+  const isUpdateMode = updateId !== null;
 
   return (
     <>
@@ -45,9 +56,10 @@ function Images(props) {
             createImage={createImage}
             image={image}
             setImage={setImage}
+            isUpdateMode={isUpdateMode}
           />
         )}
-        <button className="toggle-form-btn" onClick={() => setShow(!show)}>
+        <button className="toggle-form-btn" onClick={handleToggleForm}>
           {show ? "Cancel" : "Add Image"}
         </button>
       </div>
@@ -59,11 +71,9 @@ function Images(props) {
           filteredImages.map((img) => (
             <ImageCard
               key={img.id}
-              id={img.id}
-              title={img.title}
-              url={img.url}
+              img={img}
               deleteImage={deleteImage}
-              updateImage={hanleUpdateImage}
+              updateImage={handleUpdateImage}
             />
           ))
         )}

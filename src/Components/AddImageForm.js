@@ -1,5 +1,5 @@
 function AddImageForm(props) {
-  const { createImage, image, setImage } = props;
+  const { createImage, image, setImage, isUpdateMode } = props;
 
   function clearInputs() {
     setImage({ title: "", url: "" });
@@ -28,7 +28,7 @@ function AddImageForm(props) {
           Clear
         </button>
         <button className="submit" type="submit">
-          Add-Image
+          {isUpdateMode ? "Update" : "Add"}
         </button>
       </form>
     </div>

@@ -1,91 +1,117 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Albums from "./Components/Albums";
 import Navbar from "./Components/Navbar";
 import Images from "./Components/Images";
+import { db } from "./Firebase/FirebaseInit";
+
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 function App() {
+  // ---------------- VIEW CONTROL ----------------
   const [showImages, setShowImages] = useState(false);
 
-  // albums
+  // ---------------- DATA STATES ----------------
   const [albums, setAlbums] = useState([]);
-
-  // images (with stable id)
   const [images, setImages] = useState([]);
 
-  // selected album index
-  const [selectedAlbumIndex, setSelectedAlbumIndex] = useState(null);
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
 
-  // form states
+  // ---------------- FORM STATES ----------------
   const [albumName, setAlbumName] = useState("");
   const [image, setImage] = useState({ title: "", url: "" });
+  const [updateId, setUpdateId] = useState(null);
 
-  //Set updated index
-  const [updateIndex, setUpdateIndex] = useState(null);
+  // ---------------- FETCH ALBUMS ----------------
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, "albums"), (snapshot) => {
+      const albumData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setAlbums(albumData);
+    });
+    return () => unsub();
+  }, []);
 
-  function openAlbum(index) {
-    setSelectedAlbumIndex(index);
+  // ---------------- FETCH IMAGES ----------------
+  useEffect(() => {
+    const unsub = onSnapshot(collection(db, "images"), (snapshot) => {
+      const imageData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setImages(imageData);
+    });
+    return () => unsub();
+  }, []);
+
+  // ---------------- ALBUM FUNCTIONS ----------------
+  function openAlbum(album) {
+    setSelectedAlbum(album);
     setShowImages(true);
   }
 
-  function createAlbum(e) {
+  async function createAlbum(e) {
     e.preventDefault();
-    setAlbums([...albums, { name: albumName }]);
+    await addDoc(collection(db, "albums"), { name: albumName });
     setAlbumName("");
   }
 
-  function createImage(e) {
+  // ---------------- IMAGE FUNCTIONS ----------------
+  async function createImage(e) {
     e.preventDefault();
-    if (updateIndex !== null) {
-      setImages(
-        images.map((img) =>
-          img.id === updateIndex
-            ? {
-                ...img,
-                title: image.title,
-                url: image.url,
-              }
-            : img
-        )
-      );
-      setUpdateIndex(null);
+
+    if (!selectedAlbum) {
+      alert("Please select an album first");
+      return;
+    }
+
+    if (updateId !== null) {
+      await updateDoc(doc(db, "images", updateId), {
+        title: image.title,
+        url: image.url,
+      });
+      setUpdateId(null);
       setImage({ title: "", url: "" });
     } else {
-      setImages([
-        {
-          id: Date.now(), // ✅ stable id
-          title: image.title,
-          url: image.url,
-          albumIndex: selectedAlbumIndex,
-        },
-        ...images,
-      ]);
+      await addDoc(collection(db, "images"), {
+        title: image.title,
+        url: image.url,
+        albumId: selectedAlbum.id, // now guaranteed
+      });
       setImage({ title: "", url: "" });
     }
   }
 
-  function deleteImage(id) {
-    setImages(images.filter((img) => img.id !== id)); // ✅ delete by id
+  async function deleteImage(id) {
+    await deleteDoc(doc(db, "images", id));
   }
 
-  function updateImage(id) {
-    const imageToUpdate = images.find((img) => img.id === id);
-    setImage({ title: imageToUpdate.title, url: imageToUpdate.url });
-    setUpdateIndex(id);
+  function updateImage(img) {
+    setImage({ title: img.title, url: img.url });
+    setUpdateId(img.id);
   }
 
-  //reset update states
   function resetUpdateState() {
-    setUpdateIndex(null);
+    setUpdateId(null);
     setImage({ title: "", url: "" });
   }
 
+  // ---------------- UI ----------------
   return (
     <div className="App">
       <Navbar />
+
       {showImages ? (
         <Images
-          album={albums[selectedAlbumIndex]}
-          albumIndex={selectedAlbumIndex}
+          album={selectedAlbum}
           images={images}
           createImage={createImage}
           image={image}
@@ -94,6 +120,7 @@ function App() {
           deleteImage={deleteImage}
           updateImage={updateImage}
           resetUpdateState={resetUpdateState}
+          updateId={updateId}
         />
       ) : (
         <Albums
