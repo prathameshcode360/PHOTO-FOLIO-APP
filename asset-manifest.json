@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/PHOTO-FOLIO-APP/static/css/main.ef50b741.css",
+    "main.js": "/PHOTO-FOLIO-APP/static/js/main.504c8979.js",
+    "index.html": "/PHOTO-FOLIO-APP/index.html",
+    "main.ef50b741.css.map": "/PHOTO-FOLIO-APP/static/css/main.ef50b741.css.map",
+    "main.504c8979.js.map": "/PHOTO-FOLIO-APP/static/js/main.504c8979.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ef50b741.css",
+    "static/js/main.504c8979.js"
+  ]
+}
